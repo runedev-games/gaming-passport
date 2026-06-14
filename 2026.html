@@ -54,10 +54,11 @@
 
     </div>
 
+    <p id="gameCounter"></p>
     <div id="journalContent"></div>
     
 <script>
-  const games = {
+const games = {
     june: [
         {
             title: "Her Trees: Puzzle Dream",
@@ -90,57 +91,133 @@
                 "My favorite puzzle was the one seen above. A puzzle involving draggable numbers and a grid with some odd choices of markings. When I eventually realized the answer consisted of forming letters using these numbers and the numbers themselves indicating the order to select them for the answer, I was astounded by the creativity in this particular puzzle alone.",
 
                 "All in all, an indie game full of charm and intrigue as to what's coming next, encapsulated in a puzzle game that's cleverness really shows."
-            ],
+            ]
+        },
+
         {
             title: "Risk of Rain 2",
             finished: "June 8th, 2026"
         },
+
         {
             title: "Ace Attorney 2",
             finished: "June 2nd, 2026"
         }
     ],
 
-    july: [       
+    july: [
         {
-            title: "Risk of Rain 2",
-            finished: "June 8th, 2026"
+            title: "Placeholder July Game",
+            finished: "July 1st, 2026"
         }
-    ],
+    ]
 };
 
-    document.getElementById("monthSelect").addEventListener("change", (event) => {
-        currentMonth = event.target.value;
+let currentMonth = "june";
+let currentGame = 0;
 
-        // Start at first game of selected month
-        currentGame = 0;
+function displayGame() {
+    const game = games[currentMonth][currentGame];
 
-        displayGame();
-    });
+    let html = "";
 
-    function displayGame() {
-        const game = games[currentMonth][currentGame];
+    html += `<h2>${game.title}</h2>`;
 
-        const journalContent = document.getElementById("journalContent");
-
-        journalContent.innerHTML = "";
-
-        game.body.forEach(paragraph => {
-            journalContent.innerHTML += `<p>${paragraph}</p>`;
-        });
-
-        if (game.bonusImage1) {
-            journalContent.innerHTML += `
-                <img src="${game.bonusImage1}" alt="Bonus Image">
-            `;
-        }
-
-        if (game.body2) {
-            game.body2.forEach(paragraph => {
-                journalContent.innerHTML += `<p>${paragraph}</p>`;
-            });
-        }
+    if (game.coverImage) {
+        html += `
+            <img src="${game.coverImage}" alt="${game.title}" width="100%">
+        `;
     }
+
+    if (game.genres) {
+        html += `<p><strong>Genres:</strong> ${game.genres}</p>`;
+    }
+
+    if (game.releaseDate) {
+        html += `<p><strong>Release Date:</strong> ${game.releaseDate}</p>`;
+    }
+
+    if (game.platform) {
+        html += `<p><strong>Platform:</strong> ${game.platform}</p>`;
+    }
+
+    if (game.developer) {
+        html += `<p><strong>Developer:</strong> ${game.developer}</p>`;
+    }
+
+    if (game.publisher) {
+        html += `<p><strong>Publisher:</strong> ${game.publisher}</p>`;
+    }
+
+    if (game.finished) {
+        html += `<p><strong>Finished:</strong> ${game.finished}</p>`;
+    }
+
+    if (game.playtime) {
+        html += `<p><strong>Playtime:</strong> ${game.playtime}</p>`;
+    }
+
+    if (game.rating) {
+        html += `<p><strong>Rating:</strong> ${game.rating}</p>`;
+    }
+
+    if (game.titleImage) {
+        html += `
+            <img src="${game.titleImage}" alt="Title Screen" width="100%">
+        `;
+    }
+
+    if (game.body) {
+        game.body.forEach(paragraph => {
+            html += `<p>${paragraph}</p>`;
+        });
+    }
+
+    if (game.bonusImage1) {
+        html += `
+            <img src="${game.bonusImage1}" alt="Bonus Image" width="100%">
+        `;
+    }
+
+    if (game.body2) {
+        game.body2.forEach(paragraph => {
+            html += `<p>${paragraph}</p>`;
+        });
+    }
+
+    document.getElementById("journalContent").innerHTML = html;
+
+    document.getElementById("gameCounter").textContent =
+        `Game ${currentGame + 1} / ${games[currentMonth].length}`;
+}
+
+document.getElementById("monthSelect").addEventListener("change", (event) => {
+    currentMonth = event.target.value;
+    currentGame = 0;
+    displayGame();
+});
+
+document.getElementById("nextGame").addEventListener("click", () => {
+    currentGame++;
+
+    if (currentGame >= games[currentMonth].length) {
+        currentGame = 0;
+    }
+
+    displayGame();
+});
+
+document.getElementById("prevGame").addEventListener("click", () => {
+    currentGame--;
+
+    if (currentGame < 0) {
+        currentGame = games[currentMonth].length - 1;
+    }
+
+    displayGame();
+});
+
+displayGame();
     
 </script>
 </body>
