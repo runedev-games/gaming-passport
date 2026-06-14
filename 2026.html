@@ -51,97 +51,46 @@
         <button id="prevGame">← Previous</button>
         <button id="nextGame">Next →</button>
 
-        <p>Game 1 / 1</p> <!-- Update this whenever a game is added. -->
 
-        <hr>
-
-        <h2>Her Trees: Puzzle Dream</h2>
-
-        <p>
-            <img src="images/2026/her-trees-header.jpg" 
-                alt="*Her Trees: Puzzle Dream header provided by Steam">
-        </p>
-        
-        <p>
-            <strong>Genres:</strong> Puzzle, Indie, Adventure, Point-and-Click
-        </p>
-     
-        <p>
-            <strong>Release Date:</strong> February 10th, 2026
-        </p>
-        
-        <p>
-            <strong>Platform Played:</strong> Steam
-        </p>
-        
-        <p>
-            <strong>Developer:</strong> Stone
-        </p>
-        
-        <p>
-            <strong>Publisher:</strong> Stone
-        </p>
-
-        <p>
-            <br><strong>Finished:</strong> June 12th, 2026
-        </p>
-
-        <p>
-            <strong>Playtime:</strong> 100+ Minutes
-        </p>
-
-        <p>
-            <strong>Rating:</strong> ❤️
-        </p>
-        
-        <p>
-            <img src="images/2026/her-trees-title.png" 
-                alt="*My favorite puzzle from the game.">
-        </p>
-
-        <p>
-            Can you solve the puzzles that lie within one girl's dreams?
-        </p>
-
-        <p>
-            "Her Trees: Puzzle Dream" is a short and sweet puzzle game with a surprising amount of charm found in its art style, coziness, and linear progression.
-        </p>
-
-        <p>    
-            I picked up this game on a whim due to its cheap price and short completion time and it was pretty amazing. 
-        </p>
-
-        <p>
-            The game's artstyle was one that was hand-drawn, which I am absolutely a sucker for, as seen with my love of games like "Cuphead." It was a little unsettling with its monochromatic colors, paired with the mildly unsettling ambience, but it catered to my recent history of drawing characters without filling in their colors. Although, there's definitely an eerie feeling about progressing through the game and watching the environment slowly fall apart.
-        </p>
-        
-        <p>
-            I consider myself decent at puzzles, but like most puzzle games, I found myself stumped. I really appreciated the hint system in this game in particular, since instead of revealing the answers in one go, you are given a whole set of hints that let you decide how much of a hint you want. This really makes it stand apart for me in comparison to games like "A Little to the Left."
-        </p>
-
-        <p>
-            <img src="images/2026/her-trees-puzzle.png" 
-                alt="*My favorite puzzle from the game.">
-        </p>
-
-        <p>
-            My favorite puzzle was the one seen above. A puzzle involving draggable numbers and a grid with some odd choices of markings. When I eventually realized the answer consisted of forming letters using these numbers and the numbers themselves indicating the order to select them for the answer, I was astounded by the creativity in this particular puzzle alone.
-        </p>
-        
-        <p>
-            All in all, an indie game full of charm and intrigue as to what's coming next, encapsulated in a puzzle game that's cleverness really shows.
-        </p>
-
-        
     </div>
+
+    <div id="journalContent"></div>
     
 <script>
   const games = {
     june: [
         {
             title: "Her Trees: Puzzle Dream",
-            finished: "June 12th, 2026"
-        },
+            coverImage: "images/2026/her-trees-header.jpg",
+            genres: "Puzzle, Indie, Adventure, Point-and-Click",
+            releaseDate: "February 10th, 2026",
+            platform: "Steam",
+            developer: "Stone",
+            publisher: "Stone",
+            finished: "June 12th, 2026",
+            playtime: "100+ Minutes",
+            rating: "❤️",
+            titleImage: "images/2026/her-trees-title.png",
+
+            body: [
+                "Can you solve the puzzles that lie within one girl's dreams?",
+
+                "Her Trees: Puzzle Dream is a short and sweet puzzle game with a surprising amount of charm found in its art style, coziness, and linear progression.",
+
+                "I picked up this game on a whim due to its cheap price and short completion time and it was pretty amazing.",
+
+                "The game's artstyle was one that was hand-drawn, which I am absolutely a sucker for, as seen with my love of games like Cuphead. It was a little unsettling with its monochromatic colors, paired with the mildly unsettling ambience, but it catered to my recent history of drawing characters without filling in their colors. Although, there's definitely an eerie feeling about progressing through the game and watching the environment slowly fall apart.",
+
+                "I consider myself decent at puzzles, but like most puzzle games, I found myself stumped. I really appreciated the hint system in this game in particular, since instead of revealing the answers in one go, you are given a whole set of hints that let you decide how much of a hint you want. This really makes it stand apart for me in comparison to games like A Little to the Left."
+            ],
+
+            bonusImage1: "images/2026/her-trees-puzzle.png",
+
+            body2: [
+                "My favorite puzzle was the one seen above. A puzzle involving draggable numbers and a grid with some odd choices of markings. When I eventually realized the answer consisted of forming letters using these numbers and the numbers themselves indicating the order to select them for the answer, I was astounded by the creativity in this particular puzzle alone.",
+
+                "All in all, an indie game full of charm and intrigue as to what's coming next, encapsulated in a puzzle game that's cleverness really shows."
+            ],
         {
             title: "Risk of Rain 2",
             finished: "June 8th, 2026"
@@ -168,6 +117,30 @@
 
         displayGame();
     });
+
+    function displayGame() {
+        const game = games[currentMonth][currentGame];
+
+        const journalContent = document.getElementById("journalContent");
+
+        journalContent.innerHTML = "";
+
+        game.body.forEach(paragraph => {
+            journalContent.innerHTML += `<p>${paragraph}</p>`;
+        });
+
+        if (game.bonusImage1) {
+            journalContent.innerHTML += `
+                <img src="${game.bonusImage1}" alt="Bonus Image">
+            `;
+        }
+
+        if (game.body2) {
+            game.body2.forEach(paragraph => {
+                journalContent.innerHTML += `<p>${paragraph}</p>`;
+            });
+        }
+    }
     
 </script>
 </body>
