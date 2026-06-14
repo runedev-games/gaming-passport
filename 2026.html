@@ -160,7 +160,15 @@
     ],
 };
 
-</script>
+    document.getElementById("monthSelect").addEventListener("change", (event) => {
+        currentMonth = event.target.value;
+
+        // Start at first game of selected month
+        currentGame = 0;
+
+        displayGame();
+    });
+    
 </script>
 </body>
 </html>
